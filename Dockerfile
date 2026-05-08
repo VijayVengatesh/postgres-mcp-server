@@ -22,3 +22,4 @@ WORKDIR /app
 RUN npm ci --ignore-scripts --omit-dev
 
 ENTRYPOINT ["node", "dist/src/index.js"]
+CMD ["--verbose"]

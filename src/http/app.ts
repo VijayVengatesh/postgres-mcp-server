@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import { config } from "../config/env.js";
-import { createMcpServer } from "../server/server.js";
 import {
   handleMcpRequest,
   handleMcpDelete,
@@ -11,9 +10,8 @@ import {
 
 export function createApp() {
   const app = express();
-  const mcpServer = createMcpServer();
+  app.set("trust proxy", true);
 
-  // CORS configuration
   app.use(
     cors({
       origin: config.server.corsOrigins,
@@ -38,13 +36,12 @@ export function createApp() {
     next();
   });
 
-  // Route handlers
-  app.post("/mcp", (req, res) => handleMcpRequest(mcpServer, req, res));
+  app.post("/mcp", handleMcpRequest);
   app.delete("/mcp", handleMcpDelete);
   app.get("/mcp", handleMcpGet);
   app.get("/health", (req, res) => {
     res.status(200).json({ status: "OK", uptime: process.uptime() });
   });
 
-  return { app, mcpServer, closeAllTransports };
+  return { app, closeAllTransports };
 }

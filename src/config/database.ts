@@ -12,6 +12,10 @@ resourceBaseUrl.password = ""; // Clear password for constructing resource URIs
 
 export const pool = new pg.Pool({
     connectionString: databaseUrl,
+    connectionTimeoutMillis: 10000,
+    query_timeout: 60000,
+    keepAlive: true,
+    keepAliveInitialDelayMillis: 10000,
 });
 
 export const SCHEMA_PATH = "schema";

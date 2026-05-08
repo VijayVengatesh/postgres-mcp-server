@@ -35,12 +35,10 @@ const logger = {
     }
   },
   error(...args: any[]) {
-    if (verbose) {
-      console.error(
-        `${COLORS.error}[${getTimestamp()}] ERROR:${COLORS.reset}`,
-        ...args,
-      );
-    }
+    console.error(
+      `${COLORS.error}[${getTimestamp()}] ERROR:${COLORS.reset}`,
+      ...args,
+    );
   },
 };
 
